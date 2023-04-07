@@ -13,7 +13,6 @@ const btnAgain = document.querySelector('.again');
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 // initialize the values
-let guessValue;
 let currentScore = 20;
 let highScore = 0;
 
@@ -24,10 +23,10 @@ const displayMessage = function (msg) {
 
 // function when guess is different
 const differentGuess = function (guess, secret) {
-  guess > secret
-    ? displayMessage('📈 Too high!')
-    : displayMessage('📉 Too low!');
   if (currentScore > 1) {
+    guess > secret
+      ? displayMessage('📈 Too high!')
+      : displayMessage('📉 Too low!');
     currentScore--;
     currentScoreEl.textContent = currentScore;
   } else {
@@ -44,31 +43,38 @@ const changeStyle = function (bgColor, width) {
 
 // function for game logic/checking guess
 function checkGuess() {
-  guessValue = Number(guess.value);
+  const guessValue = Number(guess.value);
   // check if guess value is correct
   if (typeof guessValue !== 'number' || guessValue < 1 || guessValue > 20) {
     displayMessage('Guess value must be between 1 and 20');
-  } else if (guessValue != secretNumber) {
-    // if guess value is higher than secret number
-    differentGuess(guessValue, secretNumber);
-  } else {
+
+    // when the guess is correct
+  } else if (guess === secretNumber) {
     displayMessage('🎉 Correct Number!');
     secretBox.textContent = secretNumber;
+    changeStyle('#60b347', '30rem');
     highScore = currentScore > highScore ? currentScore : highScore;
     highScoreEl.textContent = highScore;
-    changeStyle('#60b347', '30rem');
+
+    // when the guess is wrong
+  } else if (guessValue !== secretNumber) {
+    differentGuess(guessValue, secretNumber);
+
+    // when the guess is correct
   }
 }
 
 // function to restart the game
 const restart = function () {
-  // generate a new secret number
+  // generate a new secret number and set current score to initial score
   secretNumber = Math.trunc(Math.random() * 20) + 1;
-  secretBox.textContent = '?';
   currentScore = 20;
-  currentScoreEl.textContent = currentScore;
+
   displayMessage('Start guessing...');
+  secretBox.textContent = '?';
+  currentScoreEl.textContent = currentScore;
   guess.value = '';
+
   changeStyle('#222', '15rem');
 };
 
