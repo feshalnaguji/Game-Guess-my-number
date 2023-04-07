@@ -18,8 +18,8 @@ let currentScore = 20;
 let highScore = 0;
 
 // function to display the message
-const displayMessage = function (message) {
-  message.textContent = message;
+const displayMessage = function (msg) {
+  message.textContent = msg;
 };
 
 // function when guess is different
