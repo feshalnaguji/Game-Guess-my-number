@@ -49,7 +49,7 @@ function checkGuess() {
     displayMessage('Guess value must be between 1 and 20');
 
     // when the guess is correct
-  } else if (guess === secretNumber) {
+  } else if (guessValue === secretNumber) {
     displayMessage('🎉 Correct Number!');
     secretBox.textContent = secretNumber;
     changeStyle('#60b347', '30rem');
